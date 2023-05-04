@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
+        <RootNamespace>Messerli.IO</RootNamespace>
+        <AssemblyName>Messerli.IO</AssemblyName>
+    </PropertyGroup>
+    <PropertyGroup>
+        <PackageTags>utility io</PackageTags>
+        <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
+        <Copyright>© Messerli Informatik AG. All rights reserved.</Copyright>
+        <Description>Various utility functions for working with I/O.</Description>
+    </PropertyGroup>
+</Project>

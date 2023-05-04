@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageVersion Include="Messerli.CodeStyle" Version="[2.2.0, 3)" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="[17.4.0, 18)" />
+		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="[1.1.1, 2)" />
+		<PackageVersion Include="xunit" Version="[2.4.2, 3)" />
+		<PackageVersion Include="xunit.runner.visualstudio" Version="[2.4.2, 3)" />
+	</ItemGroup>
+</Project>
