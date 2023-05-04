@@ -91,7 +91,7 @@ public static class Retrier
         // The EWOULDBLOCK error code from Linux.
         // EWOULDBLOCK is the same as EAGAIN:
         // EWOULDBLOCK: https://github.com/torvalds/linux/blob/1a5304fecee523060f26e2778d9d8e33c0562df3/include/uapi/asm-generic/errno.h#L22
-        // EAGAIN: https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/errno-base.h#L15
+        // EAGAIN: https://github.com/torvalds/linux/blob/1a5304fecee523060f26e2778d9d8e33c0562df3/include/uapi/asm-generic/errno-base.h#L15
         // ReSharper disable once InconsistentNaming
         public const int EWOULDBLOCK = 11;
     }
