@@ -10,4 +10,7 @@
         <Copyright>© Messerli Informatik AG. All rights reserved.</Copyright>
         <Description>Various utility functions for working with I/O.</Description>
     </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Funcky" />
+    </ItemGroup>
 </Project>
