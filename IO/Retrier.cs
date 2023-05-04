@@ -1,4 +1,4 @@
-#if !NET_7_0_OR_GREATER
+#if !NET7_0_OR_GREATER
 using System.Runtime.InteropServices;
 #endif
 using Funcky.RetryPolicies;
@@ -7,17 +7,12 @@ namespace Messerli.IO;
 
 public static class Retrier
 {
-    // The HResult that corresponds with the Win32 ERROR_SHARING_VIOLATION (0x20) code.
-    // (HResults include some additional information)
-    private const int SharingViolationHResult = unchecked((int)0x80070020);
-
-    // The EWOULDBLOCK error code from POSIX.
-    // ReSharper disable once InconsistentNaming
-    private const int EWOULDBLOCK = 0xB;
-
-    private static readonly int FileInUseHResult = IsWindows()
-        ? SharingViolationHResult
-        : EWOULDBLOCK;
+    private static readonly int FileInUseHResult = 0 switch
+    {
+        _ when IsWindows() => Windows.SharingViolationHResult,
+        _ when IsMacOS() => MacOS.EWOULDBLOCK,
+        _ => Linux.EWOULDBLOCK,
+    };
 
     /// <summary><para>Retries an action if a «file is still in use» exception is thrown.</para>
     /// <para>On Windows, this is an <see cref="IOException"/> with the <c>ERROR_SHARING_VIOLATION</c> code
@@ -65,9 +60,39 @@ public static class Retrier
         }
     }
 
-#if NET_7_0_OR_GREATER
+#if NET7_0_OR_GREATER
     private static bool IsWindows() => OperatingSystem.IsWindows();
 #else
     private static bool IsWindows() => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #endif
+
+#if NET7_0_OR_GREATER
+    private static bool IsMacOS() => OperatingSystem.IsMacOS();
+#else
+    private static bool IsMacOS() => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+#endif
+
+    private static class Windows
+    {
+        // The HResult that corresponds with the Win32 ERROR_SHARING_VIOLATION (0x20) code.
+        // (HResults include some additional information)
+        public const int SharingViolationHResult = unchecked((int)0x80070020);
+    }
+
+    private static class MacOS
+    {
+        // The EAGAIN/EWOULDBLOCK error code from BSD/macOS.
+        // Source: https://github.com/apple-oss-distributions/xnu/blob/5c2921b07a2480ab43ec66f5b9e41cb872bc554f/bsd/sys/errno.h#L131-L132
+        public const int EWOULDBLOCK = 35;
+    }
+
+    private static class Linux
+    {
+        // The EWOULDBLOCK error code from Linux.
+        // EWOULDBLOCK is the same as EAGAIN:
+        // EWOULDBLOCK: https://github.com/torvalds/linux/blob/1a5304fecee523060f26e2778d9d8e33c0562df3/include/uapi/asm-generic/errno.h#L22
+        // EAGAIN: https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/errno-base.h#L15
+        // ReSharper disable once InconsistentNaming
+        public const int EWOULDBLOCK = 11;
+    }
 }
