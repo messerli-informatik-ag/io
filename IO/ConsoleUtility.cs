@@ -11,15 +11,15 @@ public static class ConsoleUtility
     /// If this process is the last one, the console will be destroyed when the process exists.</para>
     /// <para>This function is useful for determining if the console should
     /// be kept open (e.g. by using <see cref="Console.ReadLine"/>).</para></summary>
-    /// <example><code>
+    /// <example><code><![CDATA[
     /// using static Messerli.IO.ConsoleUtility;
     ///
-    /// if (IsLastProcessAttachedToConsole())
+    /// if (OperatingSystem.IsWindows() && IsLastProcessAttachedToConsole())
     /// {
     ///     Console.WriteLine("Press Enter to continue...");
     ///     Console.ReadLine();
     /// }
-    /// </code></example>
+    /// ]]></code></example>
     /// <remarks>This API is only supported on windows only.</remarks>
 #if NET7_0_OR_GREATER
     [SupportedOSPlatform("windows")]
