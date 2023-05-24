@@ -1,6 +1,3 @@
-#if !NET7_0_OR_GREATER
-using System.Runtime.InteropServices;
-#endif
 using Funcky.RetryPolicies;
 
 namespace Messerli.IO;
@@ -9,8 +6,8 @@ public static class Retrier
 {
     private static readonly int FileInUseHResult = 0 switch
     {
-        _ when IsWindows() => Windows.SharingViolationHResult,
-        _ when IsMacOS() => MacOS.EWOULDBLOCK,
+        _ when OperatingSystem.IsWindows() => Windows.SharingViolationHResult,
+        _ when OperatingSystem.IsMacOS() => MacOS.EWOULDBLOCK,
         _ => Linux.EWOULDBLOCK,
     };
 
@@ -59,18 +56,6 @@ public static class Retrier
             }
         }
     }
-
-#if NET7_0_OR_GREATER
-    private static bool IsWindows() => OperatingSystem.IsWindows();
-#else
-    private static bool IsWindows() => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-#endif
-
-#if NET7_0_OR_GREATER
-    private static bool IsMacOS() => OperatingSystem.IsMacOS();
-#else
-    private static bool IsMacOS() => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-#endif
 
     private static class Windows
     {

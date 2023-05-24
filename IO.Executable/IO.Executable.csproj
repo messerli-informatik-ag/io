@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <RootNamespace>Messerli.IO.Executable</RootNamespace>
+        <AssemblyName>Messerli.IO.Executable</AssemblyName>
+        <OutputType>Exe</OutputType>
+    </PropertyGroup>
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\IO\IO.csproj" />
+    </ItemGroup>
+</Project>
