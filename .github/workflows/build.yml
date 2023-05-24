@@ -31,7 +31,7 @@ jobs:
       name: Install Current .NET SDK
     - name: Generate NuGet Packages
       run: dotnet pack --configuration Release --output nupkg /p:TreatWarningsAsErrors=true
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       if: success() && github.ref == 'refs/heads/main'
       with:
         name: nupkg
