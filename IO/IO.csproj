@@ -5,10 +5,9 @@
         <AssemblyName>Messerli.IO</AssemblyName>
     </PropertyGroup>
     <PropertyGroup>
-        <Version>0.2.1</Version>
+        <Version>0.2.2</Version>
         <PackageTags>utility io</PackageTags>
         <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
-        <Copyright>© Messerli Informatik AG. All rights reserved.</Copyright>
         <Description>Various utility functions for working with I/O.</Description>
     </PropertyGroup>
     <ItemGroup>
